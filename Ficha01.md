@@ -81,27 +81,28 @@ viz.table(Infer(moeda3))
 
 var make_coin = function(prob) {
   return function() {
-    return flip(prob)
+    return flip(prob)+flip(prob)+flip(prob)+flip(prob)+flip(prob)
   }
 }
 
-var moeda = make_coin(0.5)
+var moedas = make_coin(0.5)
 
 //True=cara, false=coroa
-var lancamentos = repeat(5,moeda)
+//Histograma com o número de caras
+var lancamentos = repeat(10,moedas)
 viz(lancamentos)
 
 //Parte 2 do exercicio usando a distribuição de Bernoulli
 
 var make_coin = function(prob) {
   return function() {
-    return bernoulli({p:0.5})
+    return binomial({p:0.5,n:5})
   }
 }
 
-var moedadist = make_coin(0.5)
+var moedasf = make_coin(0.5)
 
-var lancamentosdist = repeat(5,moedadist)
+var lancamentosdist = repeat(10,moedasf)
 viz(lancamentosdist)
 ~~~~
 
@@ -163,8 +164,6 @@ console.log("Saiu a carta " + sorteio)
 ~~~~
 
 ~~~~
-//Exercício 8
-
 var valores = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"]
 var naipes = mapN(function(x){return "C"},13).concat(mapN(function(x){return "E"},13)).concat(mapN(function(x){return "O"},13)).concat(mapN(function(x){return "P"},13))
 var concat = function(x, y) { return x + y; };
@@ -205,7 +204,7 @@ var carta = function(){
 }
 
 
-var resultados = repeat(20,carta)
+var resultados = repeat(52,carta)
 viz(resultados)
 
 //saiu apenas uma carta cada em 52 lançamentos, logo o código funciona
