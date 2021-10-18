@@ -85,7 +85,7 @@ var make_coin = function(prob) {
   }
 }
 
-var moedas = make_coin(0.5)
+var moedas = make_coin(0.7)
 
 //True=cara, false=coroa
 //Histograma com o número de caras
@@ -96,11 +96,11 @@ viz(lancamentos)
 
 var make_coin = function(prob) {
   return function() {
-    return binomial({p:0.5,n:5})
+    return binomial({p:prob,n:5})
   }
 }
 
-var moedasf = make_coin(0.5)
+var moedasf = make_coin(0.7)
 
 var lancamentosdist = repeat(10,moedasf)
 viz(lancamentosdist)
