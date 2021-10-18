@@ -163,6 +163,8 @@ console.log("Saiu a carta " + sorteio)
 ~~~~
 
 ~~~~
+//Exercício 8
+
 var valores = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"]
 var naipes = mapN(function(x){return "C"},13).concat(mapN(function(x){return "E"},13)).concat(mapN(function(x){return "O"},13)).concat(mapN(function(x){return "P"},13))
 var concat = function(x, y) { return x + y; };
