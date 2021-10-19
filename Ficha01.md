@@ -63,15 +63,15 @@ var moeda3 = make_coin(0.9)
 //True=cara, false=coroa
 var lancamentos = repeat(1000,moeda)
 viz(lancamentos)
-viz.table(Infer(moeda))
+viz.table(lancamentos)
 
 var lancamentos2 = repeat(1000,moeda2)
 viz(lancamentos2)
-viz.table(Infer(moeda2))
+viz.table(lancamentos2)
 
 var lancamentos3 = repeat(1000,moeda3)
 viz(lancamentos3)
-viz.table(Infer(moeda3))
+viz.table(lancamentos3)
 ~~~~
 
 ~~~~
@@ -138,7 +138,8 @@ var modelo = function(){
   return d1+d2
 }
 
-viz(Infer(modelo))
+var lancamentos = repeat(1000,modelo)
+viz(lancamentos)
 ~~~~
 
 ~~~~
@@ -164,6 +165,8 @@ console.log("Saiu a carta " + sorteio)
 ~~~~
 
 ~~~~
+//Exercício 8
+
 var valores = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"]
 var naipes = mapN(function(x){return "C"},13).concat(mapN(function(x){return "E"},13)).concat(mapN(function(x){return "O"},13)).concat(mapN(function(x){return "P"},13))
 var concat = function(x, y) { return x + y; };
@@ -176,13 +179,14 @@ var carta = function(){
   return sorteio
 }
 
-
+//Só se pode repetir um máximo de 52 vezes, porque depois não há mais cartas
 var resultados = repeat(52,carta)
 viz(resultados)
 ~~~~
 
 ~~~~
 //Exercício 8 alternativo
+//Forma mais complicada de fazer o ex.8 alterando a lista das probabilidades
 
 //Cria uma lista com as probabilidades de sair cada carta: Todas têm uma prob de 1/52
 var lista_prob = mapN(function (x){return 1/52},52)
