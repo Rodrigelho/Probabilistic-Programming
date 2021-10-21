@@ -92,7 +92,7 @@ var moedas = make_coin(0.7)
 var lancamentos = repeat(10,moedas)
 viz(lancamentos)
 
-//Parte 2 do exercicio usando a distribuição de Bernoulli
+//Parte 2 do exercicio usando a distribuição binomial
 
 var make_coin = function(prob) {
   return function() {
