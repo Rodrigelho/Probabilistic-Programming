@@ -149,7 +149,9 @@ viz(lancamentos)
 //E-espadas
 //O-Ouros
 //P-Paus
+//Exemplos: 10O = 10 de Ouros; KE = Rei de espadas
 
+//Criar um array que contém todas as cartas
 var valores = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"]
 var naipes = mapN(function(x){return "C"},13).concat(mapN(function(x){return "E"},13)).concat(mapN(function(x){return "O"},13)).concat(mapN(function(x){return "P"},13))
 var concat = function(x, y) { return x + y; };
@@ -167,11 +169,14 @@ console.log("Saiu a carta " + sorteio)
 ~~~~
 //Exercício 8
 
+//Criar um array que contém todas as cartas
 var valores = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"]
 var naipes = mapN(function(x){return "C"},13).concat(mapN(function(x){return "E"},13)).concat(mapN(function(x){return "O"},13)).concat(mapN(function(x){return "P"},13))
 var concat = function(x, y) { return x + y; };
 var cartas = map2(concat,valores.concat(valores).concat(valores).concat(valores),naipes)
 
+//Uma carta é sorteada, descobre-se o indice dessa carta e 
+// remove-se a carta do array usando as funções pré-definidas indexOf e splice
 var carta = function(){
   var sorteio = categorical({vs:cartas})
   var carta_a_remover = cartas.indexOf(sorteio, 0)
@@ -186,19 +191,21 @@ viz(resultados)
 
 ~~~~
 //Exercício 8 alternativo
-//Forma mais complicada de fazer o ex.8 alterando a lista das probabilidades
+//Forma diferente de fazer o ex alterando a probabilidade de uma carta já saída para 0
+// em vez de remover a carta da lista
 
 //Cria uma lista com as probabilidades de sair cada carta: Todas têm uma prob de 1/52
 var lista_prob = mapN(function (x){return 1/52},52)
 
-//Cria uma lista com as cartas todas :[1,2,3,4,...,52]
 
+//Cria uma lista com as cartas todas
 var valores = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"]
 var naipes = mapN(function(x){return "C"},13).concat(mapN(function(x){return "E"},13)).concat(mapN(function(x){return "O"},13)).concat(mapN(function(x){return "P"},13))
 var concat = function(x, y) { return x + y; };
 var cartas = map2(concat,valores.concat(valores).concat(valores).concat(valores),naipes)
 
 //Vê qual foi a carta que foi sorteada e substitui a probabilidade de sair no futuro por 0
+//A função splice também pode trocar elementos de uma lista
 var carta = function(){
   if (all(function (x){return x==0},lista_prob)) {return null}
   var valor = categorical({ps:lista_prob,vs:cartas})
