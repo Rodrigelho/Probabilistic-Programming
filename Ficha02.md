@@ -32,6 +32,8 @@ viz(lancamentos5)
 Crie uma nova função onde os dados repetidos são removidos;
 
 ~~~~
+//Exercício 2
+
 var myfilter = function(x){
   if (x == 0 || x == 1){
     return x
@@ -44,11 +46,8 @@ var myfilter = function(x){
 var funcaof = function(nd,faces){
   var prob_faces = mapN(function(){return 1/faces},faces)
   var resultados = multinomial({ps:prob_faces, n:nd})
-  //console.log(resultados)
   var resultadosf = map(myfilter,resultados)
-  //console.log(resultadosf)
   var results = mapIndexed(function(indice,valor){return (indice+1)*valor},resultadosf)
-  //console.log(results)
   return sum(results)
 }
 
@@ -75,14 +74,38 @@ viz(lancamentos5)
 Crie uma função para o sistema Roll & Keep. Represente o histograma para 1k1; 3k1; 5k1; 7k2; 9k4*Click here* to edit me!
 
 ~~~~
-var funcaof = function(nd,faces){
-  var prob_faces = mapN(function(){return 1/faces},faces)
-  var resultados = multinomial({ps:prob_faces, n:nd})
-  //console.log(resultados)
-  var resultadosf = map(myfilter,resultados)
-  //console.log(resultadosf)
-  var results = mapIndexed(function(indice,valor){return (indice+1)*valor},resultadosf)
-  //console.log(results)
-  return sum(results)
+//Exercicio 3
+
+var valores = [1,2,3,4,5,6,7,8,9,10]
+
+var dado = function(){
+  return categorical({vs:valores})
 }
+
+
+var exploding_dices = function(){
+  var dado1 = dado()
+  if (dado1 == 10){
+    return 10 + exploding_dices()
+  }
+  else{
+    return dado1
+  }
+}
+
+var RollandKeep = function(x,y){
+  var valores = repeat(x,exploding_dices)
+  var valores_ord = sort(valores)
+  console.log("lançamentos: ",valores_ord)
+  valores_ord.splice(0,valores_ord.length-y)
+  console.log("y a manter: ",valores_ord)
+  return(sum(valores_ord))
+}
+
+
+var onekone = RollandKeep(1,1)
+var threekone = RollandKeep(3,1)
+var fivekone = RollandKeep(5,1)
+var sevenktwo = RollandKeep(7,2)
+var ninekfour = RollandKeep(9,4)
 ~~~~
