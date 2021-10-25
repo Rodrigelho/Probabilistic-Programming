@@ -194,6 +194,8 @@ viz.heatMap(Infer(WoD))
 Represente um heatmap com o nº de dados vs o nº de sucessos para o TN de 9
 
 ~~~~
+//Exercício 6
+
 var valores = [1,2,3,4,5,6,7,8,9,10]
 
 var dado = function(){
@@ -203,11 +205,13 @@ var dado = function(){
 var WoD = function(){
   var nd = randomInteger(20)+1
   var TN = 9
-  var valores = repeat(10,dado)
-  //console.log(valores)
+  var valores = repeat(nd,dado)
+  //console.log("valores: ",valores)
   var lista_sucessos = filter(function(x){return x>=TN},valores)
+  //console.log("Lista de sucessos: ",lista_sucessos)
   var sucessos = lista_sucessos.length
   var lista_fracassos = filter(function(x){return x == 1},valores)
+  //console.log("Lista de fracassos: ",lista_fracassos)
   var fracassos = lista_fracassos.length
   var total = sucessos - fracassos
   //console.log("O jogador teve " + sucessos + " sucessos e "+fracassos+ " fracassos, logo terminou com um total de",total)
@@ -248,8 +252,88 @@ var RollandKeep = function(x,y){
   return(sum(valores_ord))
 }
 
-var ContestedRolls = function(){
-  var jogador1 = RollandKeep(2,5)
-  var jogador2 = RollandKeep()
+
+var contestedRk = function(x1,y1,x2,y2){
+  var jogador1 = RollandKeep(x1,y1)
+  var jogador2 = RollandKeep(x2,y2)
+  if (jogador1 > jogador2){return 0}
+  else if (jogador1 == jogador2) {return 2}
+  else {return 1}
 }
+
+var f_repeat = function(x1,y1,x2,y2){
+  return function(){return contestedRk(x1,y1,x2,y2)}
+}
+
+
+/*É fácil de prever qual é o jogador com vantagem na maior parte dos casos. Por exemplo, se
+um jogador tem 10 traits e 5 skills e o outro tem 5 traits e 3 skills, é óbvio que o primeiro
+jogador vai ganhar na grande maioria dos jogos. No entanto, para certas situações, isto pode
+não ser tão óbvio. Vamos estudar na gama dos 4/5 traits:*/
+
+var r4k4vsr5k3 = f_repeat(4,4,5,3)
+var r4k3vsr5k2 = f_repeat(4,3,5,2)
+var r4k2vsr5k1 = f_repeat(4,2,5,1)
+
+/*Como podemos ver, quando um jogador tem n traits e n skills e o outro n+1 traits e n-1 skills,
+os jogos são muito equilibrados, sendo ainda assim melhor ter mais traits e menos skills.
+Este padrão verifica-se para outros valores de traits:*/
+
+var r5k5vsr6k4 = f_repeat(5,5,6,4)
+var r6k6vsr7k5 = f_repeat(6,6,7,5)
+
+
+viz(Infer(r4k4vsr5k3))
+viz(Infer(r4k3vsr5k2))
+viz(Infer(r5k5vsr6k4))
+viz(Infer(r6k6vsr7k5))
+
+
+viz.table(Infer(r4k4vsr5k3))
+viz.table(Infer(r5k5vsr6k4))
+viz.table(Infer(r6k6vsr7k5))
+~~~~
+
+~~~~
+//Exercício 8
+
+var valores = [1,2,3,4,5,6,7,8,9,10]
+
+var dado = function(){
+  return categorical({vs:valores})
+}
+
+var WoD = function(nd,TN){
+  var valores = repeat(nd,dado)
+  //console.log(valores)
+  var lista_sucessos = filter(function(x){return x>=TN},valores)
+  var sucessos = lista_sucessos.length
+  var lista_fracassos = filter(function(x){return x == 1},valores)
+  var fracassos = lista_fracassos.length
+  var total = sucessos - fracassos
+  //console.log("O jogador teve " + sucessos + " sucessos e "+fracassos+ " fracassos, logo terminou com um total de",total)
+  return total
+}
+
+var contestedWoD = function(nd1,nd2,TN){
+  var jogador1 = WoD(nd1,TN)
+  var jogador2 = WoD(nd2,TN)
+  if (jogador1 > jogador2){return 0}
+  else if (jogador1 == jogador2) {return 2}
+  else {return 1}
+}
+
+var f_repeat = function(nd1,nd2,TN){
+  return function(){return contestedWoD(nd1,nd2,TN)}
+}
+
+var nd5vsnd6TN5 = f_repeat(5,6,5)
+var nd5vsnd6TN2 = f_repeat(5,6,2)
+var nd5vsnd6TN9 = f_repeat(5,6,9)
+
+viz(Infer(nd5vsnd6TN5))
+viz(Infer(nd5vsnd6TN2))
+viz(Infer(nd5vsnd6TN9))
+
+//Conclusão: Quantos mais dados, mais provável é ganhar o jogo.
 ~~~~
