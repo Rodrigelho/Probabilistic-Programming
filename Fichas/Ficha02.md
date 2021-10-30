@@ -351,7 +351,7 @@ var nd5vsnd6TN5 = f_repeat(5,6,5) //jogador 1 tem 5 dados e jogador 2 tem 6 dado
 var nd5vsnd6TN2 = f_repeat(5,6,2) //padrão igual ao de cima
 var nd5vsnd6TN9 = f_repeat(5,6,9)
 var nd3vsnd7TN9 = f_repeat(3,7,9)
-var nd1vsnd10TN10 = f_repeat(1,10,10)
+var nd9vsnd10TN9 = f_repeat(9,10,9)
 
 //0-Jogador1 ganhou; 1-Jogador2 ganhou;2-Empate
 viz(Infer({method:'rejection',samples:5000},nd5vsnd6TN2))
@@ -361,7 +361,7 @@ viz(Infer({method:'rejection',samples:5000},nd5vsnd6TN9))
 console.log("De uma forma geral, quantos mais dados se tiver, maior é a probabilidade de ganhar.")
 console.log("No entanto, o impacto do número de dados é maior para um TN baixo")
 
-console.log("Só para um TN muito alto é que pode compensar ter menos dados, mas tem de ser uma diferença grande, como podemos ver neste caso entre 1 e 10 dados para um TN de 10")
+console.log("Mesmo para o TN máximo de 9, é sempre preferível ter mais dados.")
 
-viz(Infer({method:'rejection',samples:5000},nd1vsnd10TN10))
+viz(Infer({method:'rejection',samples:5000},nd9vsnd10TN9))
 ~~~~
