@@ -4,4 +4,4 @@ Este repositório servirá para colocar o código desenvolvido no contexto da UC
 
 
 Link do Google Collab:
-https://drive.google.com/file/d/10v5OOizoIudEScw5TJeJWwZpzK1dy6B6/view?usp=sharing
+https://colab.research.google.com/drive/12O6SoE0XlpqTK0ePKEoQw9jlntPLlMny?usp=sharing
