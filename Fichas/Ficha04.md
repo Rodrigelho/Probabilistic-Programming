@@ -1,24 +1,21 @@
-# Crie uma função sondagens(tamanho) que gere sondagens baseada nas probabilidades dadas abaixo
+### 1 - Crie uma função sondagens(tamanho) que gere sondagens baseada nas probabilidades dadas abaixo
 
 ~~~~
 var perc = {"ps":36.34,"psd":27.76,"cdu":6.33,"cds":4.22, "be":9.52,
   "pan":3.32,"chega":1.29,"il":1.29, "livre":1.09, "indecisos":8.84}
 
-var pares = _.toPairs(perc)
-var tuplo = _.unzip(pares)
-
-var tamanho = 1000
+var tamanho = 5000
 
 var sondagens = function(tamanho){
   var result = multinomial({ps:map(function(x) {return x/100},_.values(perc)),n:tamanho})
-  var sondagem_resultado =_.fromPairs(_.zip(tuplo[0], result))
+  var sondagem_resultado =_.fromPairs(_.zip(_.keys(perc), result))
   return sondagem_resultado
 }
 
 sondagens(tamanho)
 ~~~~
 
-## Utilizando os resultados da sondagem, crie um modelo para as probabilidades de um eleitor votar em cada partido
+### 2 e 3 -Utilizando os resultados da sondagem, crie um modelo para as probabilidades de um eleitor votar em cada partido e use o viz.marginals para mostrar o resultado gráficamente
 
 ~~~~
 var perc = {"ps":36.34,"psd":27.76,"cdu":6.33,"cds":4.22, "be":9.52,
@@ -45,7 +42,7 @@ var modelo = function(){
 viz.marginals(Infer({method:'MCMC',samples: 5000},function(){modelo()}))
 ~~~~
 
-Use o estimador do High Density Interval para estimar o intervalo da probabilidade para cada partido
+### 4- Use o estimador do High Density Interval para estimar o intervalo da probabilidade para cada partido
 
 ~~~~
 var perc = {"ps":36.34,"psd":27.76,"cdu":6.33,"cds":4.22, "be":9.52,
